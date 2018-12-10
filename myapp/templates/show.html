@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<table class="tabe table-striped table=bordered table-sm">
+  <thread class="thread-dark">
+    <tr>
+      <th>Employee ID</th>
+      <th>Employee name</th>
+      <th>Employee Competency</th>
+      <th>Employee Suggestion</th>
+      <th>Employee image</th>
+      <th>INFORMATION</th>
+    </tr>
+  </thread>
+  <tbody>
+  {% for employee in employees %}
+  <tr>
+    <td>{{employee.emp_id}}</td>
+    <td>{{employee.emp_name}}</td>
+    <td>{{employee.competency}}</td>
+    <td>{{employee.suggest}}</td>
+    <td><img src="{{employee.emp_img.url}}"></td>
+    <td> <a href="{% url 'delete' employee.id %}" class="btn btn-danger">DELETE</a>
+    <a href="{% url 'update' employee.id %}" class="btn btn-primary">UPDATE</a></td>
+  </tr>
+{% endfor %}
+{% endblock   %}
+</tbody>
+</table>

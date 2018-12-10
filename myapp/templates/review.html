@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form class="" method="post">
+      {% csrf_token %}
+      <label> RATING_CHOICES :</label>
+      <select name=rating_choice>
+          <option value="1">one</option>
+          <option value="2">two</option>
+          <option value="3">three</option>
+          <option value="4">four</option>
+          <option value="5">five</option>
+      <input type="text" name="description" placeholder="Enter your comment"><br><br>
+      <input type="submit" name="" value="Submit">
+    </form>
+    
+  </body>
+</html>

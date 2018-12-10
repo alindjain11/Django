@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form class=""  method="post" >
+      {% csrf_token %}
+      <select name="name1">
+        {% for rest in name %}
+        <option value="{{rest.id}}">{{rest.name}}</option>
+        {% endfor%}
+        </select>
+      <label> Name :</label>
+      <input type="text" name="name" placeholder="Enter your name"><br><br>
+      <label> description :</label>
+      <input type="text" name="description" placeholder="Enter your description"><br><br>
+      <label> Dollar Amount :</label>
+      <input type="text" name="price" placeholder="Enter your amount"><br><br>
+      <!-- <label> Image :</label> -->
+      <!-- <input type="file" name="image" value="....Click here to Upload..."><br><br> -->
+      <input type="submit" name="" value="Submit">
+    </form>
+  </body>
+</html>

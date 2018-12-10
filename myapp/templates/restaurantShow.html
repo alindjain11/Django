@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+     {% for obj in restro %}
+     <ul>
+       <li>{{obj.name}}</li>
+       <li>{{obj.street}}</li>
+       <li>{{obj.number}}</li>
+       <li>{{obj.city}}</li>
+       <li>{{obj.zipcode}}</li>
+       <li>{{obj.state}}</li>
+       <li>{{obj.country}}</li>
+       <li>{{obj.telephone}}</li>
+       <ul>
+         <li><a href="{% url 'delete' obj.id %}">delete</a></li>
+         <li><a href="{% url 'update' obj.id %}">update</a></li>
+       </ul>
+     </ul>
+     {% endfor %}
+
+  </body>
+</html>

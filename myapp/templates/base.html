@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      .alert-error {
+        color: #a94442;
+background-color: #f2dede;
+border-color: #ebccd1;
+      }
+    </style>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title></title>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">DADDISON</a>
+    </div>
+    <form action="{% url 'search' %}" method="POST">
+
+
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="{% url 'show' %}">SHOW</a></li>
+      {% csrf_token %}
+      <li><input type="text" name="searching" placeholder="Search Here"</li>
+      <li><a href="{% url 'search' %}">Search</a></li>
+    </ul>
+    </form>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+      <strong>{{message.tags}}!</strong>{{message}}
+    </div>
+    {% endfor %}
+{% endif %}
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>
