@@ -36,10 +36,14 @@ border-color: #ebccd1;
       <li><a href="{% url 'search' %}">Search</a></li>
     </ul>
     </form>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right {% block blockclass %}{% endblock %}">
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
+      {% else %}
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="/myapp/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
+    {% endif %}
   </div>
 </nav>
 {% if messages %}

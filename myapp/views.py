@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, HttpResponse
 from .models import *
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def restaurant(request):
     if request.method == 'POST':
@@ -99,6 +101,7 @@ def index(request):
     content={'form':form}
     return render(request, 'forms.html', content)
 
+@login_required()
 def show(request):
     data=Employee.objects.all()
     context={'employees':data}
@@ -122,5 +125,40 @@ def search(request):
     data=Employee.objects.filter(emp_name__icontains=search_box)
     context={'employees': data}
     return render(request, 'show.html', context)
+
+def register(request):
+    if request.method=='POST':
+       form1=userform(request.POST)
+       if form1.is_valid():
+           username=form1.cleaned_data['username']
+           first_name = form1.cleaned_data['first_name']
+           last_name = form1.cleaned_data['last_name']
+           email = form1.cleaned_data['email']
+           password = form1.cleaned_data['password']
+           User.objects.create_user(username=username,
+           first_name=first_name,last_name=last_name,
+           email=email,password=password)
+           return redirect('/register')
+    else:
+        form1=userform()
+    context = {'form':form1}
+    return render(request,'registration.html',context)
+
+
+def loging(request):
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        user=authenticate(username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('/myapp/show/')
+        else:
+            return HttpResponse('<h1> NOPE </h1>')
+    return render(request, 'login.html')
+
+def logoutuser(request):
+    logout(request)
+    return render(request, 'login.html')
 
 # Create your views here.

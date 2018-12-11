@@ -15,6 +15,9 @@ urlpatterns = [
     path('update/<int:id>', update,name='update'),
     path('student',student,name='student'),
     path('show/', show, name='show'),
-    path('search/', search, name='search')
+    path('search/', search, name='search'),
+    path('registration/', register, name='register'),
+    path('login/', loging, name='login'),
+    path('logout/', logoutuser, name='logout')
 
 ]

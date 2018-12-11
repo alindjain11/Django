@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style type="text/css">
+    .hell{
+        background-color: #87ceeb;
+    }
+</style>
+  <form action="{% url 'register' %}" class="col-md-6"  method="POST">
+    {% csrf_token  %}
+    {{form.as_p}}
+    <input type="submit" name="register">
+  </form>
+
+{% endblock %}
+{% block blockclass %}
+hell
+{% endblock %}
