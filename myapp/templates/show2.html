@@ -13,7 +13,7 @@
     </tr>
   </thread>
   <tbody>
-  {% for employee in employees %}
+  {% for employee in object_list %}
   <tr>
     <td>{{employee.emp_id}}</td>
     <td>{{employee.emp_name}}</td>
@@ -26,23 +26,4 @@
 {% endfor %}
 
 </tbody>
-</table>
-    {{employees.paginator.page_range}}
-    <center>
-      <div>
-        <span>
-            {% if employees.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{ employess.previous_page_number }}">Previous</a>
-            {% endif %}
-<span>
-
-        <strong>Page {{employees.number}} of {{employees.paginator.num_pages}}</strong>
-        </span>
-        {% if employees.has_next %}
-        <a href="?page={{ employees.next_page_number }}">next</a>
-        <a href="?page={{ employees.paginator.num_pages }}"> last &raquo</a>
-        {% endif %}
-      </div>
-</span>
-{% endblock   %}
+{% endblock %}

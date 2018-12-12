@@ -2,6 +2,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView,ListView
 from .views import *
 
 urlpatterns = [
@@ -18,6 +19,9 @@ urlpatterns = [
     path('search/', search, name='search'),
     path('registration/', register, name='register'),
     path('login/', loging, name='login'),
-    path('logout/', logoutuser, name='logout')
+    path('logout/', logoutuser, name='logout'),
+    path('changepassword/', changepass, name='password'),
+    path('home/', HomeView.as_view(), name='home'),
+    path('employee/', EmployeeListView.as_view(), name='employs')
 
 ]

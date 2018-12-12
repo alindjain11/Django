@@ -42,7 +42,7 @@ class userform(forms.ModelForm):
         except:
             raise forms.ValidationError("email is not valid")
             return email
-            
+
     def clean_confirm_password(self):
         p=self.cleaned_data['password']
         cp=self.cleaned_data['confirm_password']
@@ -54,6 +54,23 @@ class userform(forms.ModelForm):
             if(p.isdigit()):
                 raise forms.ValidationError('passowrd must contain characteers')
 
+class ChangePassword(forms.ModelForm):
+    old_password = forms.CharField(
+    widget=forms.PasswordInput(attrs={'class':'form-control'}),
+    label="old Password",
+    required=True)
+    new_password = forms.CharField(
+    widget=forms.PasswordInput(attrs={'class':'form-control'}),
+    label="New Password",
+    required=True)
+    confirm_password = forms.CharField(
+    widget=forms.PasswordInput(attrs={'class':'form-control'}),
+    label="Confirm Password",
+    required=True)
+
+    class Meta:
+        model=User
+        fields=['old_password', 'new_password', 'confirm_password']
 
 
 

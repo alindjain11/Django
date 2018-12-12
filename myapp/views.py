@@ -4,6 +4,8 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.views.generic import TemplateView,ListView
 
 def restaurant(request):
     if request.method == 'POST':
@@ -103,8 +105,13 @@ def index(request):
 
 @login_required()
 def show(request):
-    data=Employee.objects.all()
-    context={'employees':data}
+    profile_list = Employee.objects.all()
+    paginator = Paginator(profile_list, 2)
+    page= request.GET.get('page')
+    posts = paginator.get_page(page)
+#    data=Employee.objects.all()
+    context={'employees':posts}
+    print(paginator.page_range)
     return render(request, 'show.html', context)
 
 def delete(request,id):
@@ -127,38 +134,66 @@ def search(request):
     return render(request, 'show.html', context)
 
 def register(request):
-    if request.method=='POST':
-       form1=userform(request.POST)
-       if form1.is_valid():
-           username=form1.cleaned_data['username']
-           first_name = form1.cleaned_data['first_name']
-           last_name = form1.cleaned_data['last_name']
-           email = form1.cleaned_data['email']
-           password = form1.cleaned_data['password']
-           User.objects.create_user(username=username,
-           first_name=first_name,last_name=last_name,
-           email=email,password=password)
-           return redirect('/register')
-    else:
-        form1=userform()
-    context = {'form':form1}
-    return render(request,'registration.html',context)
+    if not request.user.is_authenticated:
+        if request.method=='POST':
+           form1=userform(request.POST)
+           if form1.is_valid():
+               username=form1.cleaned_data['username']
+               first_name = form1.cleaned_data['first_name']
+               last_name = form1.cleaned_data['last_name']
+               email = form1.cleaned_data['email']
+               password = form1.cleaned_data['password']
+               User.objects.create_user(username=username,
+               first_name=first_name,last_name=last_name,
+               email=email,password=password)
+               return redirect('/register')
+        else:
+            form1=userform()
+        context = {'form':form1}
+        return render(request,'registration.html',context)
+    return HttpResponse('Already registered')
 
 
 def loging(request):
-    if request.method=="POST":
-        username=request.POST['username']
-        password=request.POST['password']
-        user=authenticate(username=username, password=password)
-        if user is not None:
-            login(request,user)
-            return redirect('/myapp/show/')
-        else:
-            return HttpResponse('<h1> NOPE </h1>')
-    return render(request, 'login.html')
+    if not request.user.is_authenticated:
+        if request.method=="POST":
+            username=request.POST['username']
+            password=request.POST['password']
+            user=authenticate(username=username, password=password)
+            if user is not None:
+                login(request,user)
+                return redirect('/myapp/show/')
+            else:
+                return HttpResponse('<h1> NOPE </h1>')
+        return render(request, 'login.html')
+    else:
+        return HttpResponse('Already logged IN')
 
 def logoutuser(request):
     logout(request)
     return render(request, 'login.html')
+
+
+def changepass(request):
+    user=request.userform
+    if request.method=='POST':
+        form = ChangePassword(request.POST)
+        if form.is_valid():
+            new_password=form.cleaned_data['new_password']
+            user.set_password(new_password)
+            user.save()
+            return redirect('login/')
+        else:
+            form= ChangePassword()
+    return render(request, 'password.html', {'form':form})
+
+class HomeView(TemplateView):
+    template_name='about.html'
+
+class EmployeeListView(ListView):
+    template_name='show2.html'
+    queryset=Employee.objects.all()
+
+
 
 # Create your views here.
