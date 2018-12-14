@@ -49,12 +49,15 @@ class Employee(models.Model):
     def __str__(self):
         return self.emp_name
 
+# how are you doig
+
+
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'id':self.id})
 
 # class Property(models.Model):
 #     images = models.ManyToManyField(ImageModel)
-# 
+#
 # class ImageModel(models.Model):
 #     image= models.ImageField(upload_to='Employee')
 #     is_thumb = models.BooleanField(default=False)
