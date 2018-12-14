@@ -49,9 +49,6 @@ class Employee(models.Model):
     def __str__(self):
         return self.emp_name
 
-# how are you doig
-
-
     def get_absolute_url(self):
         return reverse('detail', kwargs = {'id':self.id})
 
