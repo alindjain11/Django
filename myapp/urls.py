@@ -22,6 +22,9 @@ urlpatterns = [
     path('logout/', logoutuser, name='logout'),
     path('changepassword/', changepass, name='password'),
     path('home/', HomeView.as_view(), name='home'),
-    path('employee/', EmployeeListView.as_view(), name='employs')
+    path('employee/', EmployeeListView.as_view(), name='employees'),
+    path('employee/<int:emp_id>', Detail.as_view(), name='detail'),
+    path('employeeadd/', EmployeeAdd.as_view(), name='add'),
+    path('employeeupdate/<int:pk>', Employeeupdate.as_view(), name='emp_update')
 
 ]

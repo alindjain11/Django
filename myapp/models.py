@@ -41,3 +41,20 @@ class Employee(models.Model):
     competency= models.CharField(max_length=50)
     suggest= models.CharField(max_length=50)
     emp_img=models.ImageField(upload_to='Employee')
+
+    class Meta:
+        db_table = 'emp_name'
+        ordering = ['-emp_name']
+
+    def __str__(self):
+        return self.emp_name
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs = {'id':self.id})
+
+# class Property(models.Model):
+#     images = models.ManyToManyField(ImageModel)
+# 
+# class ImageModel(models.Model):
+#     image= models.ImageField(upload_to='Employee')
+#     is_thumb = models.BooleanField(default=False)

@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from .models import *
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView,ListView, DetailView, CreateView, UpdateView
+from django.core.mail import send_mail
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 def restaurant(request):
     if request.method == 'POST':
@@ -146,7 +148,14 @@ def register(request):
                User.objects.create_user(username=username,
                first_name=first_name,last_name=last_name,
                email=email,password=password)
-               return redirect('/register')
+               send_mail(
+                'Dayum',
+                'hello you Fuckked up',
+                'alindjain13@gmail.com',
+                [email],
+                fail_silently=False,
+               )
+               return redirect('myapp/registeration')
         else:
             form1=userform()
         context = {'form':form1}
@@ -192,8 +201,44 @@ class HomeView(TemplateView):
 
 class EmployeeListView(ListView):
     template_name='show2.html'
-    queryset=Employee.objects.all()
+    model = Employee
+
+    #queryset=Employee.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeListView, self).get_context_data(**kwargs)
+        qs1 = Employee.objects.all()
+        context.update({'users': qs1})
+        return context
+
+class Detail(DetailView):
+    template_name='employeelist.html'
+    #queryset=Employee.objects.all()
+    def get_object(self):
+        id_ = self.kwargs.get('emp_id')
+        return get_object_or_404(Employee, emp_id=id_)
+
+class EmployeeAdd(CreateView):
+    template_name = 'employeeadd.html'
+    form_class = Nameform
+    queryset = Employee.objects.all()
+
+# def employees_data(request):
+#     a=Employee.objects.order_by('-emp_name')[:]
+#     num_visit = request.session.get('-num_visit',1)
+#     print(num_visit)
+#     request.session['num_visit']=num_visit+1
+#     return render(request, 'employees_data.html',{'record':a, 'nv':num_visit})
 
 
 
+# class Employeeupdate(UserPassesTestMaxin, UpdateView):
+#     model=Employee
+#     fields= ['emp_name']
+#
+#     def test_func(self):
+#         employee= self.get_object()
+#         return employee,id=seld.user.id
+#
+#
+#
 # Create your views here.

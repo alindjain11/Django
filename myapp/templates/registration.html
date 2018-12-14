@@ -7,9 +7,9 @@
     }
 </style>
   <form action="{% url 'register' %}" class="col-md-6"  method="POST">
-    {% csrf_token  %}
+    {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" name="register">
+    <input type="submit">
   </form>
 
 {% endblock %}

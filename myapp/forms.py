@@ -35,13 +35,13 @@ class userform(forms.ModelForm):
     class Meta:
         model= User
         fields=['username','email','first_name', 'last_name', 'password', 'confirm_password']
-    def clean_email(self):
-        email=self.cleaned_data['email']
-        try:
-            em=validate_email(email)
-        except:
-            raise forms.ValidationError("email is not valid")
-            return email
+    # def clean_email(self):
+    #     email=self.cleaned_data['email']
+    #     try:
+    #         ema=validate_email(email)
+    #     except:
+    #         raise forms.ValidationError("email is not valid")
+    #     return email
 
     def clean_confirm_password(self):
         p=self.cleaned_data['password']
