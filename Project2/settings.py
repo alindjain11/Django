@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'rest_framework',   
 ]
 
 MIDDLEWARE = [
@@ -48,9 +49,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'login.middleware.AutoLogout',
 ]
 
 ROOT_URLCONF = 'Project2.urls'
+
+AUTO_LOGOUT_DELAY = 1
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 TEMPLATES = [
     {
@@ -130,3 +135,6 @@ EMAIL_HOST= 'smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_HOST_USER='alindjain13@gmail.com'
 EMAIL_HOST_PASSWORD='alindjain11'
+
+
+SESSION_IDLE_TIMEOUT = 1*60

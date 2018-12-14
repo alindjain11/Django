@@ -8,6 +8,12 @@ from django.core.paginator import Paginator
 from django.views.generic import TemplateView,ListView, DetailView, CreateView, UpdateView
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import UserPassesTestMixin
+from rest_framework import viewsets
+from .serializers import EmployeeSerializers
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializers
 
 def restaurant(request):
     if request.method == 'POST':

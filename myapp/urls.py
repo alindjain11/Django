@@ -25,6 +25,6 @@ urlpatterns = [
     path('employee/', EmployeeListView.as_view(), name='employees'),
     path('employee/<int:emp_id>', Detail.as_view(), name='detail'),
     path('employeeadd/', EmployeeAdd.as_view(), name='add'),
-    path('employeeupdate/<int:pk>', Employeeupdate.as_view(), name='emp_update')
+#    path('employeeupdate/<int:pk>', Employeeupdate.as_view(), name='emp_update')
 
 ]
