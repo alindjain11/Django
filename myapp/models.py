@@ -50,7 +50,7 @@ class Employee(models.Model):
         return self.emp_name
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs = {'id':self.id})
+       return reverse('detail', kwargs = {'id':self.id})
 
 # class Property(models.Model):
 #     images = models.ManyToManyField(ImageModel)
